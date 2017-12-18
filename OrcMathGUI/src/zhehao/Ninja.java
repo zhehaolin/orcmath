@@ -31,7 +31,7 @@ public class Ninja extends AnimatedComponent {
 		super.update(g);
 	}
 	public String toString() {
-		return this.name+","+this.description+","+this.age;
+		return this.name+",is "+this.description+", and he/she is "+this.age;
 	}
 
 }
