@@ -20,6 +20,7 @@ import guiTeacher.interfaces.KeyedComponent;
 import guiTeacher.interfaces.Visible;
 import guiTeacher.userInterfaces.FileLoader;
 import guiTeacher.userInterfaces.FullFunctionScreen;
+import zhehao.Ninja;
 
 public class Sampler extends GUIApplication implements FileRequester{
 
@@ -126,6 +127,7 @@ public class Sampler extends GUIApplication implements FileRequester{
 				}
 			}); 
 			viewObjects.add(cb);
+			viewObjects.add(new Ninja());
 			
 			
 				
