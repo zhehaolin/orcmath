@@ -12,22 +12,23 @@ public class CatalogMaker {
 	public static void main(String[] args) {
 		Scanner in= new Scanner(System.in);
 		CatalogMaker cm= new CatalogMaker();
-		//System.out.println(cm.getCSVcontent());
+		System.out.println(cm.getCSVcontent());
 		
-		String s=in.nextLine();
 		boolean adding=true;
 		while(adding) {
 			ninjaarray.add(new Ninja(ninjaname(),ninjaDesc(),ninjaAge()));
 			System.out.println("Would you like to add another ninja to ur village?");
-			s=in.nextLine();
+			String s=in.nextLine();
 			if(s.equalsIgnoreCase("no")) {
 				adding= false;
 			}
 		}
+		System.out.println(cm.getCSVcontent());
 		
 		
 		
 	}
+	
 	public static String ninjaname() {
 		Scanner in= new Scanner(System.in);
 		System.out.println("would would is your ninja's name?");
