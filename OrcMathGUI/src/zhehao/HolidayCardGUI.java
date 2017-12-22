@@ -4,9 +4,9 @@ import guiTeacher.GUIApplication;
 
 public class HolidayCardGUI extends GUIApplication {
 	
-	static HolidayCardGUI test = new HolidayCardGUI(500,700);
+	static HolidayCardGUI test = new HolidayCardGUI(600,650);
 	static HolidayCard front = new HolidayCard(500,700);
-	static HolidayCard inside = new HolidayCard(500,700);
+	static HolidayCardInside inside = new HolidayCardInside(500,700);
 
 	public HolidayCardGUI(int width, int height) {
 		super(width, height);
@@ -15,14 +15,18 @@ public class HolidayCardGUI extends GUIApplication {
 
 	@Override
 	public void initScreen() {
-		HolidayCard card= new HolidayCard(getWidth(),getHeight());
-		setScreen(card);
+		
+		HolidayCard front = new HolidayCard(500,700);
+		setScreen(front);
+		
+		
 
 	}
 	public static void main(String[] args) {
-		HolidayCardGUI test= new HolidayCardGUI(500,700);
+		//HolidayCardGUI test= new HolidayCardGUI(600,650);
 		Thread go= new Thread(test);
 		go.start();
+		
 	}
 
 }

@@ -10,6 +10,7 @@ import guiTeacher.userInterfaces.FullFunctionScreen;
 public class HolidayCard extends FullFunctionScreen {
 	
 	private Button button;
+	private Graphic background;
 
 	public HolidayCard(int width, int height) {
 		super(width, height);
@@ -18,13 +19,15 @@ public class HolidayCard extends FullFunctionScreen {
 
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
-		button = new Button(220,600,30,30,"click",Color.darkGray,new Action() {
+		button = new Button(200,560,200,60,"click",Color.red,new Action() {
 			
 			@Override
 			public void act() {
-				HolidayCardGUI.test.setScreen(HolidayCardGUI.front);
+				HolidayCardGUI.test.setScreen(HolidayCardGUI.inside);
 			}
 		});
+		background= new Graphic(0, 0, 600, 650, "resources/holidaycard.jpg");
+		viewObjects.add(background);
 		viewObjects.add(button);
 
 	}
