@@ -29,7 +29,7 @@ public class HolidayCardInside extends FullFunctionScreen {
 	public void initAllObjects(List<Visible> viewObjects) {
 		setCustomFont();
 		//background.drawRect(0,0,getWidth(),getHeight());
-		viewObjects.add(background);
+		//viewObjects.add(background);
 		logo = new Graphic(30, 0, getWidth(), 140, "resources/asdw.png");
 		viewObjects.add(logo);
 		commApp = new Graphic(150,150,350,100, "resources/commapplogo.png");
