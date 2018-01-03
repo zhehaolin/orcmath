@@ -1,4 +1,4 @@
-package zhehao;
+package mystuff;
 
 public class SimonGameZhehao {
 
