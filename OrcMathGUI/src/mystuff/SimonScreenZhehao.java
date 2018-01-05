@@ -1,5 +1,6 @@
 package mystuff;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,8 +68,48 @@ public class SimonScreenZhehao extends ClickableScreen implements Runnable {
 	}
 
 	private void addButtons() {
-		// TODO Auto-generated method stub
+		int numofbuttons=4;
+		Color[] mycolor= {Color.blue,Color.red,Color.green,Color.yellow};
+		buttons= new ButtonInterfaceZhehao[numofbuttons];
 		
+		for(int i=0;i<buttons.length;i++) {
+			final ButtonInterfaceZhehao b=getAButton();
+			buttons[i]=b;
+			b.setColor(mycolor[i]);
+			b.setX(100);
+			b.setY((i*100)+100);
+			b.setAction(new Action() {
+				
+				@Override
+				public void act() {
+					if(validinput) {
+						Thread blink= new Thread(new Runnable() {
+							
+							@Override
+							public void run() {
+								b.highlight();
+								try{
+									Thread.sleep(800);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+								b.dim();
+							}
+						});
+						blink.start();
+							
+					}
+				}
+			});
+		}
+	}
+	/**
+	Placeholder until partner finishes implementation of ButtonInterface
+	*/
+
+	private ButtonInterfaceZhehao getAButton() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
