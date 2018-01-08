@@ -38,7 +38,7 @@ public class SimonScreenZhehao extends ClickableScreen implements Runnable {
 		arrlist.add(randomMove());
 		arrlist.add(randomMove());
 		roundnumber=0;
-		viewObjects.add(progress);
+		viewObjects.add((Visible) progress);
 		viewObjects.add(board);
 	
 
@@ -97,6 +97,16 @@ public class SimonScreenZhehao extends ClickableScreen implements Runnable {
 							}
 						});
 						blink.start();
+						if(b == arrlist.get(sequenceidx).getButton()) {
+		    		    	sequenceidx++;
+		    		    }
+		    		    else {
+		    		    	progress.gameOver();
+		    		    }
+		    		    if(sequenceidx == arrlist.size()){
+		    		        Thread nextRound = new Thread(SimonScreenZhehao.this);
+		    		        nextRound.start();
+		    		    }
 							
 					}
 				}
@@ -114,8 +124,54 @@ public class SimonScreenZhehao extends ClickableScreen implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		 board.setText("");
+	     nextRound();
 		
+	}
+
+	private void nextRound() {
+		validinput = false;
+		roundnumber++;
+		arrlist.add(randomMove());
+		progress.setRound(roundnumber);
+		progress.setSequenceSize(arrlist.size());
+		changeText("Simon's Turn");
+		board.setText("");
+		playSequence();
+		changeText("Your Turn");
+		validinput = true;
+		sequenceidx = 0;
+		
+	}
+
+	private void playSequence() {
+		ButtonInterfaceZhehao b = null;
+		for(int i = 0; i < arrlist.size(); i++) {
+			if(b != null) {
+				b.dim();
+				b = arrlist.get(sequenceidx).getButton();
+				b.highlight();
+				int sleepTime = (10000 - (roundnumber * 100)) + 1000;
+				try {
+	                Thread.sleep(sleepTime);
+	            } catch (InterruptedException e) {
+	                // TODO Auto-generated catch block
+	                e.printStackTrace();
+	            }
+			}
+		}
+		b.dim();
+		
+	}
+
+	private void changeText(String string) {
+		board.setText(string);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+	}
 	}
 
 	
