@@ -1,8 +1,8 @@
 package mystuff;
 
-import java.beans.Visibility;
+import guiTeacher.interfaces.Visible;
 
-public interface ProgressInterfaceZhehao extends Visibility {
+public interface ProgressInterfaceZhehao extends Visible {
 
 	void gameOver();
 
