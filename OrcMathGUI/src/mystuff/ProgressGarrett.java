@@ -17,18 +17,18 @@ public class ProgressGarrett extends Component implements ProgressInterfaceZheha
 
 	@Override
 	public void gameOver() {
-		// TODO Auto-generated method stub
+		SimonScreenZhehao.getLabel().setText("You have lost the game");
 
 	}
 
 	@Override
 	public void setSequenceSize(int size) {
-		this.sequenceSize = size;
+		SimonScreenZhehao.getLabel().setText(SimonScreenZhehao.getLabel().getText() + "n/The sequence is of length " + size);
 	}
 
 	@Override
 	public void setRound(int roundnumber) {
-		this.roundNumber = roundnumber;
+		SimonScreenZhehao.getLabel().setText("This is round " + roundnumber);
 	}
 
 	@Override

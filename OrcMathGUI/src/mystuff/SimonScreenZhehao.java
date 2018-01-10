@@ -10,7 +10,7 @@ import guiTeacher.userInterfaces.ClickableScreen;
 
 public class SimonScreenZhehao extends ClickableScreen implements Runnable {
 	
-	private TextLabel board;
+	private static TextLabel board;
 	private ProgressInterfaceZhehao progress;
 	private ArrayList<MoveInterfaceZhehao> arrlist;
 	private ButtonInterfaceZhehao[] buttons;
@@ -18,11 +18,53 @@ public class SimonScreenZhehao extends ClickableScreen implements Runnable {
 	private boolean validinput;
 	private int sequenceidx;
 	private int lastselectedbutton;
-
+	private Color[] colors;
+	
 	public SimonScreenZhehao(int width, int height) {
 		super(width, height);
 		Thread app= new Thread(this);
 		app.start();
+	}
+	public void run() {
+		 board.setText("");
+	     nextRound();
+		
+	}
+	private void nextRound() {
+		validinput = false;
+		roundnumber++;
+		arrlist.add(randomMove());
+		progress.setRound(roundnumber);
+		progress.setSequenceSize(arrlist.size());
+		changeText("Simon's Turn");
+		board.setText("");
+		playSequence();
+		changeText("Your Turn");
+		validinput = true;
+		sequenceidx = 0;
+		
+	}
+
+	private void playSequence() {
+		ButtonInterfaceZhehao b = null;
+		for(int i = 0; i < arrlist.size(); i++) {
+			if(b != null) {
+				b.dim();
+				b = arrlist.get(i).getButton();
+				b.highlight();
+				
+				try {
+	                Thread.sleep((int)(1000*roundnumber));
+	            } catch (InterruptedException e) {
+	                // TODO Auto-generated catch block
+	                e.printStackTrace();
+	            }
+				b.dim();
+			}
+		}
+		
+		
+		
 	}
 
 	@Override
@@ -37,8 +79,12 @@ public class SimonScreenZhehao extends ClickableScreen implements Runnable {
 		lastselectedbutton=-1;
 		arrlist.add(randomMove());
 		arrlist.add(randomMove());
+		for(int i = 0; i < sequenceidx; i++) {
+			arrlist.add(randomMove());
+		}
 		roundnumber=0;
-		viewObjects.add((Visible) progress);
+		progress.setRound(roundnumber);
+		viewObjects.add(progress);
 		viewObjects.add(board);
 	
 
@@ -54,8 +100,7 @@ public class SimonScreenZhehao extends ClickableScreen implements Runnable {
 	Placeholder until partner finishes implementation of MoveInterface
 	*/
 	private MoveInterfaceZhehao getMove(int randomidx) {
-		// TODO Auto-generated method stub
-		return null;
+		return new MoveGarrett(buttons[randomidx]);
 	}
 
 	/**
@@ -63,21 +108,23 @@ public class SimonScreenZhehao extends ClickableScreen implements Runnable {
 	*/
 
 	private ProgressInterfaceZhehao getProgress() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ProgressGarrett(100, 100, 200, 200);
 	}
 
 	private void addButtons() {
-		int numofbuttons=4;
-		Color[] mycolor= {Color.blue,Color.red,Color.green,Color.yellow};
-		buttons= new ButtonInterfaceZhehao[numofbuttons];
+		
+		colors = new Color[4];
+		colors[0] = Color.BLUE;
+		colors[1] = Color.YELLOW;
+		colors[2] = Color.RED;
+		colors[3] = Color.GREEN;
+		buttons= new ButtonInterfaceZhehao[4];
 		
 		for(int i=0;i<buttons.length;i++) {
-			final ButtonInterfaceZhehao b=getAButton();
-			buttons[i]=b;
-			b.setColor(mycolor[i]);
-			b.setX(100);
-			b.setY((i*100)+100);
+			final ButtonInterfaceZhehao b=getAButton(100,i*100+50,50,50);
+			b.setColor(colors[i]);
+		//	b.setX(100);
+			//b.setY((i*100)+100);
 			b.setAction(new Action() {
 				
 				@Override
@@ -111,58 +158,26 @@ public class SimonScreenZhehao extends ClickableScreen implements Runnable {
 					}
 				}
 			});
+			buttons[i]=b;
 		}
 	}
 	/**
 	Placeholder until partner finishes implementation of ButtonInterface
+	 * @param j 
+	 * @param i 
 	*/
 
-	private ButtonInterfaceZhehao getAButton() {
-		// TODO Auto-generated method stub
-		return null;
+	private ButtonInterfaceZhehao getAButton(int x, int y,int w,int h) {
+		return new ButtonGarrett(x, y, w, h, "",null);	
 	}
 
-	@Override
-	public void run() {
-		 board.setText("");
-	     nextRound();
-		
-	}
+	
 
-	private void nextRound() {
-		validinput = false;
-		roundnumber++;
-		arrlist.add(randomMove());
-		progress.setRound(roundnumber);
-		progress.setSequenceSize(arrlist.size());
-		changeText("Simon's Turn");
-		board.setText("");
-		playSequence();
-		changeText("Your Turn");
-		validinput = true;
-		sequenceidx = 0;
-		
+	
+	public static TextLabel getLabel() {
+		return board;
 	}
-
-	private void playSequence() {
-		ButtonInterfaceZhehao b = null;
-		for(int i = 0; i < arrlist.size(); i++) {
-			if(b != null) {
-				b.dim();
-				b = arrlist.get(sequenceidx).getButton();
-				b.highlight();
-				int sleepTime = (10000 - (roundnumber * 100)) + 1000;
-				try {
-	                Thread.sleep(sleepTime);
-	            } catch (InterruptedException e) {
-	                // TODO Auto-generated catch block
-	                e.printStackTrace();
-	            }
-			}
-		}
-		b.dim();
-		
-	}
+	
 
 	private void changeText(String string) {
 		board.setText(string);
