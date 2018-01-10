@@ -15,7 +15,6 @@ public class ButtonGarrett extends Button implements ButtonInterfaceZhehao {
 
 	public ButtonGarrett(int x, int y, int w, int h, String text, Action action) {
 		super(x, y, w, h, "", null);
-		update();
 	}
 
 	@Override
@@ -27,7 +26,7 @@ public class ButtonGarrett extends Button implements ButtonInterfaceZhehao {
 
 	@Override
 	public void highlight() {
-		this.setColor(Color.WHITE);
+		this.setColor(Color.black);
 		update();
 	}
 
@@ -36,6 +35,10 @@ public class ButtonGarrett extends Button implements ButtonInterfaceZhehao {
 		this.setColor(hColor);
 		update();
 	}
+	public void update() {
+		
+	}
+	
 	
 	public void drawButton(Graphics2D g, boolean hover) {
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
